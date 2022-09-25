@@ -23,9 +23,9 @@ POST http://localhost:8080/transaction/cancel
 Content-Type: application/json
 
 {
-  "transactionId":"f902d63ded5d4e4f9ead9095193cf6e8",
-  "accountNumber":"1000000000",
-  "amount":50000
+  "transactionId":"291e5dc8158d4c419aee07a9aa741b61",
+  "accountNumber":"1000000002",
+  "amount":500
 }
 
 ### query Transaction

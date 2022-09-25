@@ -42,8 +42,8 @@ class AccountServiceTest {
     void createAccountSuccess() {
         // given
         AccountUser user = AccountUser.builder()
-                .id(12L)
                 .name("Pobi").build();
+        user.setId(12L);
 
         given(accountUserRepository.findById(anyLong()))
                 .willReturn(Optional.of(user));
@@ -74,8 +74,8 @@ class AccountServiceTest {
     void createAccountFirstSuccess() {
         // given
         AccountUser user = AccountUser.builder()
-                .id(12L)
                 .name("Pobi").build();
+        user.setId(12L);
 
         given(accountUserRepository.findById(anyLong()))
                 .willReturn(Optional.of(user));
@@ -120,8 +120,8 @@ class AccountServiceTest {
     void createAccountFailed_maxAccountIs10() {
         // given
         AccountUser user = AccountUser.builder()
-                .id(12L)
                 .name("Pobi").build();
+        user.setId(12L);
 
         given(accountUserRepository.findById(anyLong()))
                 .willReturn(Optional.of(user));
@@ -144,7 +144,8 @@ class AccountServiceTest {
     void deleteAccountSuccess() {
         // given
         AccountUser user = AccountUser.builder()
-                .id(12L).build();
+                .name("Pobi").build();
+        user.setId(12L);
 
         Account account = Account.builder()
                 .accountUser(user)
@@ -192,7 +193,8 @@ class AccountServiceTest {
     void deleteAccountFailed_AccountNotFound() {
         // given
         AccountUser user = AccountUser.builder()
-                .id(12L).build();
+                .name("Pobi").build();
+        user.setId(12L);
 
         given(accountUserRepository.findById(anyLong()))
                 .willReturn(Optional.of(user));
@@ -213,10 +215,12 @@ class AccountServiceTest {
     void deleteAccountFailed_UserUnMatch() {
         // given
         AccountUser pobi = AccountUser.builder()
-                .id(12L).name("Pobi").build();
+                .name("Pobi").build();
+        pobi.setId(12L);
 
         AccountUser harry = AccountUser.builder()
-                .id(17L).name("harry").build();
+                .name("Pobi").build();
+        harry.setId(17L);
 
         Account account = Account.builder()
                 .accountUser(harry)
@@ -245,7 +249,8 @@ class AccountServiceTest {
     void deleteAccountFailed_AlreadyUnregistered() {
         // given
         AccountUser user = AccountUser.builder()
-                .id(12L).name("Pobi").build();
+                .name("Pobi").build();
+        user.setId(12L);
 
         Account account = Account.builder()
                 .accountUser(user)
@@ -274,7 +279,8 @@ class AccountServiceTest {
     void deleteAccountFailed_BalanceNotEmpty() {
         // given
         AccountUser user = AccountUser.builder()
-                .id(12L).name("Pobi").build();
+                .name("Pobi").build();
+        user.setId(12L);
 
         Account account = Account.builder()
                 .accountUser(user)
@@ -302,9 +308,15 @@ class AccountServiceTest {
     @DisplayName("계좌 확인 성공")
     void getAccountByUserIdSuccess() {
 
-        AccountUser userA = AccountUser.builder().id(2L).name("harry").build();
-        AccountUser userB = AccountUser.builder().id(3L).name("harry").build();
-        AccountUser userC = AccountUser.builder().id(4L).name("harry").build();
+        AccountUser user = AccountUser.builder().build();
+        AccountUser userA = AccountUser.builder().build();
+        AccountUser userB = AccountUser.builder().build();
+        AccountUser userC = AccountUser.builder().build();
+
+        user.setId(12L);
+        userA.setId(2L);
+        userB.setId(3L);
+        userC.setId(4L);
 
         List<Account> accounts = Arrays.asList(
                 Account.builder().accountUser(userA)
@@ -317,8 +329,7 @@ class AccountServiceTest {
 
         // given
         given(accountUserRepository.findById(anyLong()))
-                .willReturn(Optional.of(AccountUser.builder()
-                        .id(12L).build()));
+                .willReturn(Optional.of(user));
 
         given(accountRepository.findByAccountUser(any()))
                 .willReturn(accounts);

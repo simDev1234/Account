@@ -40,8 +40,7 @@ public class AccountService {
     @Transactional
     public AccountDto createAccount(Long userId, Long initialBalance) {
 
-        AccountUser accountUser = accountUserRepository.findById(userId)
-                .orElseThrow(() -> new AccountException(ErrorCode.USER_NOT_FOUND));
+        AccountUser accountUser = getAccountUser(userId);
 
         // 비즈니스 로직상의 validation.
         // -- 너무 많은 예외처리는 좋지 않다. (별도로 처리하는 게 좋다.)
@@ -126,14 +125,20 @@ public class AccountService {
     @Transactional
     public List<AccountDto> getAccountByUserId(Long userId) {
 
-        AccountUser user = accountUserRepository.findById(userId)
+        AccountUser accountUser = accountUserRepository.findById(userId)
                 .orElseThrow(() -> new AccountException(ErrorCode.USER_NOT_FOUND));
 
-        List<Account> accounts = accountRepository.findByAccountUser(user);
+        List<Account> accounts = accountRepository.findByAccountUser(accountUser);
 
         return accounts.stream()
                 .map(AccountDto::fromEntity)
                 .collect(Collectors.toList());
+    }
+
+    private AccountUser getAccountUser(Long userId) {
+        AccountUser accountUser = accountUserRepository.findById(userId)
+                .orElseThrow(() -> new AccountException(ErrorCode.USER_NOT_FOUND));
+        return accountUser;
     }
 
 }

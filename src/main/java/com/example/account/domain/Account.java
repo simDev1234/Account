@@ -4,12 +4,11 @@ import com.example.account.exception.AccountException;
 import com.example.account.type.AccountStatus;
 import com.example.account.type.ErrorCode;
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.*;
-
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.ManyToOne;
 import java.time.LocalDateTime;
 
 @Getter
@@ -18,11 +17,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 @Entity
-@EntityListeners(AuditingEntityListener.class) // 자동 createDate, moditedData
-public class Account {
-    @Id
-    @GeneratedValue
-    private Long id;
+public class Account extends BaseEntity {
 
     @ManyToOne
     private AccountUser accountUser; // H2에 user와 충돌X면 accountUser로 명명
@@ -34,11 +29,6 @@ public class Account {
 
     private LocalDateTime registeredAt;
     private LocalDateTime unregisteredAt;
-
-    @CreatedDate
-    private LocalDateTime createdAt;
-    @LastModifiedDate
-    private LocalDateTime updatedAt;
 
     public void useBalance(Long amount) {
         if (amount > balance) {
