@@ -4,7 +4,7 @@ Content-Type: application/json
 
 {
   "userId": 1,
-  "initialBalance": -100
+  "initialBalance": 10000
 }
 
 ### delete account
@@ -17,29 +17,6 @@ Content-Type: application/json
 }
 
 ### get account
-GET http://localhost:8080/account?user_id=2
+GET http://localhost:8080/account?user_id=1
 Accept: application/json
 
-### use balance
-POST http://localhost:8080/transaction/use
-Content-Type: application/json
-
-{
-  "userId":1,
-  "accountNumber":"1000000000",
-  "amount":50000
-}
-
-### cancel balance
-POST http://localhost:8080/transaction/cancel
-Content-Type: application/json
-
-{
-  "transactionId":"f902d63ded5d4e4f9ead9095193cf6e8",
-  "accountNumber":"1000000000",
-  "amount":50000
-}
-
-### query Transaction
-GET http://localhost:8080/transaction/c4f401f98dfe4e57a3032044ca00892b
-Accept: application/json

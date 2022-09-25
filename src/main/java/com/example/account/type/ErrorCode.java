@@ -20,7 +20,8 @@ public enum ErrorCode {
     TRANSACTION_ACCOUNT_UN_MATCH("현재 계좌가 거래에 사용된 계좌와 일치하지 않습니다."),
     TRANSACTION_AMOUNT_UN_MATCH("거래 금액과 거래 취소 금액이 다릅니다.(부분 취소 불가능)"),
     TOO_OLD_ORDER_TO_CANCEL("1년이 넘은 거래는 사용 취소가 불가능합니다."),
-    INVALID_REQUEST("잘못된 요청입니다.");
+    INVALID_REQUEST("잘못된 요청입니다."),
+    ACCOUNT_TRANSACTION_LOCK("해당 계좌는 사용중입니다.");
 
     private String description;
 

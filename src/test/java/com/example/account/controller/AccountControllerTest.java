@@ -1,16 +1,11 @@
 package com.example.account.controller;
 
-import com.example.account.domain.Account;
 import com.example.account.dto.AccountDto;
 import com.example.account.dto.CreateAccount;
 import com.example.account.dto.DeleteAccount;
 import com.example.account.exception.AccountException;
-import com.example.account.repository.AccountRepository;
 import com.example.account.service.AccountService;
-import com.example.account.service.RedisTestService;
-import com.example.account.type.AccountStatus;
 import com.example.account.type.ErrorCode;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,7 +19,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -33,9 +29,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(AccountController.class)
 class AccountControllerTest {
-
-    @MockBean
-    private RedisTestService redisTestService;
 
     @MockBean
     private AccountService accountService;
